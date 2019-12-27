@@ -9,18 +9,15 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class DataHandler {
     private ExecutorService providerPool;
     private BlockingQueue<String> queue;
+    private String[] ips = {"192.168.2.30"};
 
     public DataHandler() {
-        this.providerPool = Executors.newFixedThreadPool(10);
+        this.providerPool = Executors.newFixedThreadPool(ips.length);
         this.queue = new LinkedBlockingQueue<>();
-
-        new Thread(new Consumer(queue)).start();
-
-        createProviders();
     }
 
-    public void createProviders() {
-        String[] ips = {"192.168.2.30"};
+    public void startListening() {
+        new Thread(new Consumer(queue)).start();
 
         for(String ip: ips) {
             try {

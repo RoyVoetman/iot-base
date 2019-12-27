@@ -1,15 +1,17 @@
-package nl.lab.roy.iotbase.handlers.data;
+package nl.lab.roy.iotbase.handlers.request;
 
-import java.net.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.net.Socket;
 import java.util.concurrent.BlockingQueue;
 
 public class Provider implements Runnable {
     private Socket socket;
-    private BlockingQueue<String> queue;
+    private BlockingQueue<String[]> queue;
 
-    public Provider(BlockingQueue<String> queue, String ip) throws IOException {
-        this.socket = new Socket(ip, 8888);
+    public Provider(BlockingQueue<String[]> queue, Socket socket) {
+        this.socket = socket;
         this.queue = queue;
     }
 
@@ -19,7 +21,8 @@ public class Provider implements Runnable {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 
             while ((line = bufferedReader.readLine()) != null) {
-                this.queue.add(line);
+                String[] request = {"192.168.2.25", line};
+                this.queue.add(request);
             }
 
             socket.close();
