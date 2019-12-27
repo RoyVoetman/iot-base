@@ -7,7 +7,6 @@ import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
 public class Consumer implements Runnable {
-    private Socket socket;
     private BlockingQueue<String[]> queue;
 
     public Consumer(BlockingQueue<String[]> queue) {
@@ -22,10 +21,11 @@ public class Consumer implements Runnable {
                 while ((item = this.queue.poll(10, TimeUnit.MILLISECONDS)) != null) {
                     System.out.println("IP: " + item[0] + " Data: " + item[1]);
 
-                    socket = new Socket(item[0], 8888);
-                    PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
+                    Socket socket = new Socket(item[0], 8888);
+                    PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
                     out.println(item[1]);
                     out.flush();
+                    socket.close();
                 }
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();

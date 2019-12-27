@@ -1,5 +1,7 @@
 package nl.lab.roy.iotbase.handlers.request;
 
+import nl.lab.roy.iotbase.Config;
+
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
