@@ -1,15 +1,15 @@
-package nl.lab.roy.iotbase.server;
+package nl.lab.roy.iotbase.handlers.data;
 
 import java.net.*;
 import java.io.*;
 import java.util.concurrent.BlockingQueue;
 
-class Provider implements Runnable {
+public class Provider implements Runnable {
     private Socket connection;
     private BlockingQueue<String> queue;
 
-    public Provider(Socket connection, BlockingQueue<String> queue) {
-        this.connection = connection;
+    public Provider(BlockingQueue<String> queue, String ip) throws IOException {
+        this.connection = new Socket(ip, 8888);
         this.queue = queue;
     }
 
@@ -19,7 +19,6 @@ class Provider implements Runnable {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.connection.getInputStream()));
 
             while ((line = bufferedReader.readLine()) != null) {
-                System.out.println(line);
                 this.queue.add(line);
             }
 

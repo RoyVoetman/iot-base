@@ -1,9 +1,9 @@
-package nl.lab.roy.iotbase.server;
+package nl.lab.roy.iotbase.handlers.data;
 
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.TimeUnit;
 
-class Consumer implements Runnable {
+public class Consumer implements Runnable {
     private BlockingQueue<String> queue;
 
     public Consumer(BlockingQueue<String> queue) {
@@ -16,7 +16,7 @@ class Consumer implements Runnable {
         while (true) {
             try {
                 while ((item = this.queue.poll(10, TimeUnit.MILLISECONDS)) != null) {
-                    System.err.println(item);
+                    System.out.println(item);
                 }
             } catch (InterruptedException e) {
                 e.printStackTrace();
