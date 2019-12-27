@@ -21,7 +21,7 @@ public class Provider implements Runnable {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 
             while ((line = bufferedReader.readLine()) != null) {
-                String[] request = {"192.168.2.25", line};
+                String[] request = line.split( " ");
                 this.queue.add(request);
             }
 

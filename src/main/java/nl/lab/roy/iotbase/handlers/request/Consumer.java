@@ -25,6 +25,7 @@ public class Consumer implements Runnable {
                     socket = new Socket(item[0], 8888);
                     PrintWriter out = new PrintWriter(this.socket.getOutputStream(), true);
                     out.println(item[1]);
+                    out.flush();
                 }
             } catch (InterruptedException | IOException e) {
                 e.printStackTrace();
