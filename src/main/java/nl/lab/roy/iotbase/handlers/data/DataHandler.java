@@ -9,7 +9,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 public class DataHandler {
     private ExecutorService providerPool;
     private BlockingQueue<String> queue;
-    private String[] ips = {"192.168.2.30"};
+    private String[] ips = {"192.168.2.35"};
 
     public DataHandler() {
         this.providerPool = Executors.newFixedThreadPool(ips.length);

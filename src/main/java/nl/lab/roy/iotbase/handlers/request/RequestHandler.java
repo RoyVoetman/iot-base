@@ -2,8 +2,12 @@ package nl.lab.roy.iotbase.handlers.request;
 
 import com.pusher.client.Pusher;
 import com.pusher.client.PusherOptions;
-import com.pusher.client.channel.Channel;
+import com.pusher.client.channel.PrivateChannel;
+import com.pusher.client.channel.PrivateChannelEventListener;
 import com.pusher.client.channel.PusherEvent;
+import com.pusher.client.util.HttpAuthorizer;
+
+import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
@@ -19,16 +23,31 @@ public class RequestHandler {
     }
 
     public void bindRequestHandler() {
+        HttpAuthorizer authorizer = new HttpAuthorizer("http://php_tcp.test/api/broadcasting/auth");
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Authorization", "Bearer VQwdTtxQJppOGpkY5Dld8hjuOOU4ojVTVfJ2VnRP5jYzys7NqWgXLb9vY5HsZB52zYLwpuoNPGNBuwSP");
+        authorizer.setHeaders(headers);
         PusherOptions options = new PusherOptions();
         options.setCluster("eu");
+        options.setEncrypted(true);
+        options.setAuthorizer(authorizer);
         Pusher pusher = new Pusher("2850701da12e978763d8", options);
 
-        Channel channel = pusher.subscribe("units");
+        PrivateChannel channel = pusher.subscribePrivate("private-requests");
 
-        channel.bind("App\\Events\\UnitUpdated", (PusherEvent event) -> {
-            System.out.println(event.getData());
+        channel.bind("update.request", new PrivateChannelEventListener() {
+            public void onEvent(PusherEvent pusherEvent) {
+                System.out.println(pusherEvent.getData());
+            }
+
+            public void onSubscriptionSucceeded(String s) {
+                System.err.println(s);
+            }
+
+            public void onAuthenticationFailure(String s, Exception e) {
+                System.err.println(s);
+            }
         });
-
         pusher.connect();
     }
 }
