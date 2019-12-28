@@ -14,11 +14,13 @@ public class DataHandler {
     public DataHandler() {
         this.providerPool = Executors.newFixedThreadPool(ips.length);
         this.queue = new LinkedBlockingQueue<>();
-    }
 
-    public void startListening() {
         new Thread(new Consumer(queue)).start();
 
+        this.createProviders();
+    }
+
+    public void createProviders() {
         for(String ip: ips) {
             try {
                 providerPool.execute(new Provider(queue, ip));

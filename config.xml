@@ -5,6 +5,6 @@
         <ip>192.168.2.30</ip>
     </clients>
     <server>
-        <port>7789</port>
+        <pusher-key>2850701da12e978763d8</pusher-key>
     </server>
 </config>

@@ -23,16 +23,16 @@ public class Consumer implements Runnable {
                 while ((item = this.queue.poll(10, TimeUnit.MILLISECONDS)) != null) {
                     System.out.println(item);
 
-                    try {
-                        URL url = new URL("http://php_tcp.test/api/update/read-unit/192.168.2.25/"+ item);
-                        HttpURLConnection con = (HttpURLConnection) url.openConnection();
-
-                        con.setRequestMethod("PUT");
-                        con.connect();
-                        con.getInputStream();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+//                    try {
+//                        URL url = new URL("http://php_tcp.test/api/update/read-unit/192.168.2.25/"+ item);
+//                        HttpURLConnection con = (HttpURLConnection) url.openConnection();
+//
+//                        con.setRequestMethod("PUT");
+//                        con.connect();
+//                        con.getInputStream();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
 
                 }
             } catch (InterruptedException e) {
