@@ -6,9 +6,11 @@ import java.util.concurrent.BlockingQueue;
 
 public class Provider implements Runnable {
     private Socket socket;
-    private BlockingQueue<String> queue;
+    private BlockingQueue<String[]> queue;
+    private String ip;
 
-    public Provider(BlockingQueue<String> queue, String ip) throws IOException {
+    public Provider(BlockingQueue<String[]> queue, String ip) throws IOException {
+        this.ip = ip;
         this.socket = new Socket(ip, 8888);
         this.queue = queue;
     }
@@ -19,7 +21,7 @@ public class Provider implements Runnable {
             BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(this.socket.getInputStream()));
 
             while ((line = bufferedReader.readLine()) != null) {
-                this.queue.add(line);
+                this.queue.add(new String[]{ip, line});
             }
 
             socket.close();

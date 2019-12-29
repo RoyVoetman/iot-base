@@ -8,7 +8,7 @@ import java.util.concurrent.LinkedBlockingQueue;
 
 public class DataHandler {
     private ExecutorService providerPool;
-    private BlockingQueue<String> queue;
+    private BlockingQueue<String[]> queue;
     private String[] ips = {"192.168.2.35"};
 
     public DataHandler() {

@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         Config.load(CONFIG_FILE);
 
-        //new DataHandler();
+        new DataHandler();
         new RequestHandler();
     }
 }
