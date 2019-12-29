@@ -6,6 +6,9 @@ import com.pusher.client.channel.PrivateChannel;
 import com.pusher.client.channel.PrivateChannelEventListener;
 import com.pusher.client.channel.PusherEvent;
 import com.pusher.client.util.HttpAuthorizer;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
@@ -37,7 +40,18 @@ public class RequestHandler {
 
         channel.bind("update.request", new PrivateChannelEventListener() {
             public void onEvent(PusherEvent pusherEvent) {
-                System.out.println(pusherEvent.getData());
+                String data = pusherEvent.getData();
+                JSONParser jsonParser = new JSONParser();
+
+                try {
+                    JSONObject json = (JSONObject) jsonParser.parse(data);
+                    String ip = (String) json.get("ip");
+                    String payload = (String) json.get("payload");
+
+                    queue.put(new String[]{ip, payload});
+                } catch (ParseException | InterruptedException e) {
+                    e.printStackTrace();
+                }
             }
 
             public void onSubscriptionSucceeded(String s) {
@@ -46,6 +60,7 @@ public class RequestHandler {
 
             public void onAuthenticationFailure(String s, Exception e) {
                 System.err.println(s);
+                e.printStackTrace();
             }
         });
         pusher.connect();
