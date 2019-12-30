@@ -1,30 +1,39 @@
 package nl.lab.roy.iotbase;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
-import java.io.InputStream;
-import java.util.Properties;
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
+
+import java.io.*;
 
 public class Config {
-    public static Properties config;
+    public String apiUrl;
+    public String apiToken;
+    public String pusherAppKey;
+    public String pusherCluster;
+    public String pusherAuth;
+    public JSONArray clients;
 
-    public static void load(String filepath) {
-        Properties config = new Properties();
-        InputStream is = null;
-
-        try {
-            is = new FileInputStream(filepath);
-        } catch (FileNotFoundException ex) {
-            System.err.println("Couldn't load config file: config.xml");
-        }
+    public Config(String filepath) {
+        JSONParser parser = new JSONParser();
 
         try {
-            config.load(is);
-        } catch (IOException ex) {
-            System.err.println("Config file: app.config contains a malformed Unicode escape sequence.");
-        }
+            Reader reader = new FileReader(filepath);
+            JSONObject config = (JSONObject) parser.parse(reader);
 
-        Config.config = config;
+            this.clients = (JSONArray) config.get("clients");
+
+            JSONObject api = (JSONObject) config.get("api");
+            this.apiUrl = (String) api.get("url");
+            this.apiToken = (String) api.get("token");
+
+            JSONObject pusher = (JSONObject) config.get("pusher");
+            this.pusherAppKey = (String) pusher.get("app-key");
+            this.pusherCluster = (String) pusher.get("cluster");
+            this.pusherAuth = (String) pusher.get("auth");
+        } catch (IOException | ParseException e) {
+            e.printStackTrace();
+        }
     }
 }

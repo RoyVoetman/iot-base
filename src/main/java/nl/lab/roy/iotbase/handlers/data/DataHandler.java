@@ -1,18 +1,16 @@
 package nl.lab.roy.iotbase.handlers.data;
 
+import nl.lab.roy.iotbase.Main;
+import nl.lab.roy.iotbase.handlers.Handler;
+
 import java.io.IOException;
 import java.util.concurrent.BlockingQueue;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class DataHandler {
-    private ExecutorService providerPool;
+public class DataHandler implements Handler {
     private BlockingQueue<String[]> queue;
-    private String[] ips = {"192.168.2.35"};
 
     public DataHandler() {
-        this.providerPool = Executors.newFixedThreadPool(ips.length);
         this.queue = new LinkedBlockingQueue<>();
 
         new Thread(new Consumer(queue)).start();
@@ -21,9 +19,10 @@ public class DataHandler {
     }
 
     public void createProviders() {
-        for(String ip: ips) {
+        for (Object client : Main.config.clients) {
             try {
-                providerPool.execute(new Provider(queue, ip));
+                String ip = (String) client;
+                new Thread(new Provider(queue, ip)).start();
             } catch (IOException e) {
                 e.printStackTrace();
             }

@@ -1,0 +1,12 @@
+{
+  "clients": [],
+  "api": {
+    "url": "https://www.iot-dashboard.com",
+    "token": ""
+  },
+  "pusher": {
+    "app-key": "",
+    "cluster": "eu",
+    "auth": "/api/broadcasting/auth"
+  }
+}

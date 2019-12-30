@@ -1,20 +1,18 @@
 package nl.lab.roy.iotbase.handlers.request;
 
+import com.pusher.client.Authorizer;
 import com.pusher.client.Pusher;
 import com.pusher.client.PusherOptions;
 import com.pusher.client.channel.PrivateChannel;
-import com.pusher.client.channel.PrivateChannelEventListener;
-import com.pusher.client.channel.PusherEvent;
 import com.pusher.client.util.HttpAuthorizer;
-import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
-import org.json.simple.parser.ParseException;
+import nl.lab.roy.iotbase.Main;
+import nl.lab.roy.iotbase.handlers.Handler;
 
 import java.util.HashMap;
 import java.util.concurrent.BlockingQueue;
 import java.util.concurrent.LinkedBlockingQueue;
 
-public class RequestHandler {
+public class RequestHandler implements Handler {
     private BlockingQueue<String[]> queue;
 
     public RequestHandler() {
@@ -22,47 +20,32 @@ public class RequestHandler {
 
         new Thread(new Consumer(queue)).start();
 
-        this.bindRequestHandler();
+        this.bindProvider();
     }
 
-    public void bindRequestHandler() {
-        HttpAuthorizer authorizer = new HttpAuthorizer("http://php_tcp.test/api/broadcasting/auth");
-        HashMap<String, String> headers = new HashMap<>();
-        headers.put("Authorization", "Bearer VQwdTtxQJppOGpkY5Dld8hjuOOU4ojVTVfJ2VnRP5jYzys7NqWgXLb9vY5HsZB52zYLwpuoNPGNBuwSP");
-        authorizer.setHeaders(headers);
-        PusherOptions options = new PusherOptions();
-        options.setCluster("eu");
-        options.setEncrypted(true);
-        options.setAuthorizer(authorizer);
-        Pusher pusher = new Pusher("2850701da12e978763d8", options);
+    public void bindProvider() {
+        Pusher pusher = new Pusher(Main.config.pusherAppKey, getPusherOptions());
 
         PrivateChannel channel = pusher.subscribePrivate("private-requests");
-
-        channel.bind("update.request", new PrivateChannelEventListener() {
-            public void onEvent(PusherEvent pusherEvent) {
-                String data = pusherEvent.getData();
-                JSONParser jsonParser = new JSONParser();
-
-                try {
-                    JSONObject json = (JSONObject) jsonParser.parse(data);
-                    String ip = (String) json.get("ip");
-                    String payload = (String) json.get("payload");
-
-                    queue.put(new String[]{ip, payload});
-                } catch (ParseException | InterruptedException e) {
-                    e.printStackTrace();
-                }
-            }
-
-            public void onSubscriptionSucceeded(String s) {
-                System.err.println(s);
-            }
-
-            public void onAuthenticationFailure(String s, Exception e) {
-                System.err.println(s);
-                e.printStackTrace();
-            }
-        });
+        channel.bind("update.request", new Provider(queue));
         pusher.connect();
+    }
+
+    private PusherOptions getPusherOptions() {
+        PusherOptions options = new PusherOptions();
+        options.setCluster(Main.config.pusherCluster);
+        options.setEncrypted(true);
+        options.setAuthorizer(getPusherAuthorizer());
+
+        return options;
+    }
+
+    private Authorizer getPusherAuthorizer() {
+        HttpAuthorizer authorizer = new HttpAuthorizer(Main.config.apiUrl + Main.config.pusherAuth);
+        HashMap<String, String> headers = new HashMap<>();
+        headers.put("Authorization", "Bearer " + Main.config.apiToken);
+        authorizer.setHeaders(headers);
+
+        return authorizer;
     }
 }
