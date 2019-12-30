@@ -30,3 +30,6 @@ This application also expects a `config.json` file in the root folder. The struc
 
 ## License
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+## Authors
+* [Roy Voetman](https://www.royvoetman.nl)
