@@ -9,10 +9,20 @@ This application is part of my **IOT dashboard suite**. This suite consists of m
 #### Dashboard with Base unit
 The Dashboard communicates with the base unit via a service called [Pusher](https://pusher.com/). Pusher is the category leader in robust APIs for app developers building scalable realtime communication features.
 
-#### Base units with Client
-The base unit communicates with the clients over a TCP socket connection.
+#### Base unit with Dashboard
+The base unit communicates with the Dashboard via calling sertain webhooks. It has been decided not to do this via Pusher because the base unit would otherwise have to act as a Pusher client and Pusher server at the same item.
 
-So the purpose of the base unit is the forward the high level Pusher events to low level TCP sockets and vice versa.
+#### Base units with Client
+The base unit communicates with the clients over a TCP socket connection on port `8888`. The clients are capable of maintaining only one connection at the time. 
+
+So the purpose of the base unit is the forward the high level Pusher messages to low level TCP sockets and vice versa. Furthermore, the base unit ensures that only 1 connection to a particular unit is made at the time.
+
+#### Security
+##### Encryption 
+To communication between the Dashboard and Base unit needs to be secure because it goes through The Internet. Pusher ensures that all messages are send over a secure SSL connection which made it the perfect service to use. If necessary, Pusher also supports E2E encryption.
+
+##### Authentication
+A Pusher client listens for messages and a Pusher Server dispatches messages into a so called `channels`. Pusher has a feature called `Private channels` joining these channels requires the clients to authorize themself before they can listen for messages from the server.
 
 ### Read unit vs Updatable unit
 An iot-client can either be a `Read unit` or an `Updatable unit`. 
