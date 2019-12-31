@@ -25,7 +25,7 @@ The Dashboard communicates with the base unit via a service called [Pusher](http
 #### Base unit with Dashboard
 The base unit communicates with the Dashboard via calling sertain webhooks (`https` required). It has been decided not to do this via Pusher because the base unit would otherwise have to act as a Pusher client and Pusher server at the same item.
 
-#### Base units with Client
+#### Base unit with Clients
 The base unit communicates with the clients over a TCP socket connection on port `8888`. The clients are capable of maintaining only one connection at the time. 
 
 So the purpose of the base unit is the forward the high level Pusher messages to low level TCP sockets and vice versa. Furthermore, the base unit ensures that only 1 connection to a particular unit is made at the time.
