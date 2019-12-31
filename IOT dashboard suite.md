@@ -30,9 +30,9 @@ The base unit communicates with the clients over a TCP socket connection on port
 
 So the purpose of the base unit is the forward the high level Pusher messages to low level TCP sockets and vice versa. Furthermore, the base unit ensures that only 1 connection to a particular unit is made at the time.
 
-#### Security
-##### Encryption 
+### Security
+#### Encryption 
 To communication between the Dashboard and Base unit needs to be secure because it goes through the Internet. Pusher ensures that all messages are sent over a secure SSL connection which made it the perfect service to use. If necessary, Pusher also supports E2E encryption.
 
-##### Authentication
+#### Authentication
 A Pusher client listens for messages and a Pusher Server dispatches messages into so-called `channels`. Pusher has a feature called `Private channels` joining these channels requires the clients to authorize themselves before they can listen for messages from the server.
