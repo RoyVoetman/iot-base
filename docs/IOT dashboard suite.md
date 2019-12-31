@@ -4,6 +4,7 @@ This application is part of my **IOT dashboard suite**. This suite consists of m
 * [iot-clients](https://github.com/RoyVoetman/iot-clients) C++ code that runs on the IOT devices. (e.g. MCUs such as the NodeMCU and the Wemos D1 mini)
 * [iot-base](https://github.com/RoyVoetman/iot-base) The base unit which is responsible for the communication between the `iot-dashboard` and `iot-clients` and vice versa.
 
+# Graphical representation
 ![](https://www.royvoetman.nl/iot/IOT-suite-diagram.png)
 
 ### Read unit vs Updatable unit
