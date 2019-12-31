@@ -5,7 +5,7 @@
 A TCP Socket application that is capable of communicating with Micro controllers (MCU) e.g. Arduinos from the [iot-clients](https://github.com/RoyVoetman/iot-clients/) project.
 
 ## About this project
-This application is part of my **IOT dashboard suite**. For more information about what this suite of projects entails a reference is made to the [IOT dashboard suite.md]() file.
+This application is part of my **IOT dashboard suite**. For more information about what this suite of projects entails a reference is made to the [IOT dashboard suite](https://github.com/RoyVoetman/iot-base/blob/master/IOT%20dashboard%20suite.md) file.
 
 ## Prerequisites
 * [Java SDK >= 1.8](https://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html)
@@ -30,3 +30,6 @@ This application also expects a `config.json` file in the root folder. The struc
 
 ## License
 The MIT License (MIT). Please see [License File](LICENSE) for more information.
+
+## Authors
+* [Roy Voetman](https://www.royvoetman.nl)
