@@ -4,6 +4,19 @@ This application is part of my **IOT dashboard suite**. This suite consists of m
 * [iot-clients](https://github.com/RoyVoetman/iot-clients) C++ code that runs on the IOT devices. (e.g. MCUs such as the NodeMCU and the Wemos D1 mini)
 * [iot-base](https://github.com/RoyVoetman/iot-base) The base unit which is responsible for the communication between the `iot-dashboard` and `iot-clients` and vice versa.
 
+### Read unit vs Updatable unit
+An iot-client can either be a `Read unit` or an `Updatable unit`. 
+
+#### Read unit
+A read unit normally is just a MCU with a specific type of sensor (e.g. A temperature sensor). 
+As soon as a connection is made to a read unit it will immediately start sending measurements at a set interval.
+
+#### Updatable unit
+An Updatable unit is a MCU which fulfills a basis function and which waits until a specific command/request is made to change this functionality. 
+A simple example of an updatable unit is a color changeable LED lamp. It will remain the same color until a request arrives to change the color.
+
+> The iot-base always keeps an active connection with `read units` but only establishes a connection with an `updatable unit` if a request has to be sent.
+
 ### Communication
 
 #### Dashboard with Base unit
@@ -23,16 +36,3 @@ To communication between the Dashboard and Base unit needs to be secure because 
 
 ##### Authentication
 A Pusher client listens for messages and a Pusher Server dispatches messages into so-called `channels`. Pusher has a feature called `Private channels` joining these channels requires the clients to authorize themselves before they can listen for messages from the server.
-
-### Read unit vs Updatable unit
-An iot-client can either be a `Read unit` or an `Updatable unit`. 
-
-#### Read unit
-A read unit normally is just a MCU with a specific type of sensor (e.g. A temperature sensor). 
-As soon as a connection is made to a read unit it will immediately start sending measurements at a set interval.
-
-#### Updatable unit
-An Updatable unit is a MCU which fulfills a basis function and which waits until a specific command/request is made to change this functionality. 
-A simple example of an updatable unit is a color changeable LED lamp. It will remain the same color until a request arrives to change the color.
-
-> The iot-base always keeps an active connection with `read units` but only establishes a connection with an `updatable unit` if a request has to be sent.
