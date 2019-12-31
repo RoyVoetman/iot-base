@@ -2,7 +2,7 @@
 [![MIT Licensed](https://img.shields.io/badge/license-MIT-brightgreen.svg?style=flat-square)](LICENSE)
 
 ## Introduction
-A TCP Socket application that is capable of communicating with Micro controllers (MCU) e.g. Arduinos from the [iot-clients](https://github.com/RoyVoetman/iot-clients/) project.
+A TCP Socket application that is capable of communicating with Micro controllers (MCUs) e.g. Arduinos from the [iot-clients](https://github.com/RoyVoetman/iot-clients/) project.
 
 ## About this project
 This application is part of my **IOT dashboard suite**. For more information about what this suite of projects entails a reference is made to [IOT dashboard suite](https://github.com/RoyVoetman/iot-base/blob/master/docs/IOT%20dashboard%20suite.md).
