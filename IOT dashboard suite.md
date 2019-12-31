@@ -19,10 +19,10 @@ So the purpose of the base unit is the forward the high level Pusher messages to
 
 #### Security
 ##### Encryption 
-To communication between the Dashboard and Base unit needs to be secure because it goes through The Internet. Pusher ensures that all messages are send over a secure SSL connection which made it the perfect service to use. If necessary, Pusher also supports E2E encryption.
+To communication between the Dashboard and Base unit needs to be secure because it goes through the Internet. Pusher ensures that all messages are sent over a secure SSL connection which made it the perfect service to use. If necessary, Pusher also supports E2E encryption.
 
 ##### Authentication
-A Pusher client listens for messages and a Pusher Server dispatches messages into a so called `channels`. Pusher has a feature called `Private channels` joining these channels requires the clients to authorize themself before they can listen for messages from the server.
+A Pusher client listens for messages and a Pusher Server dispatches messages into so-called `channels`. Pusher has a feature called `Private channels` joining these channels requires the clients to authorize themselves before they can listen for messages from the server.
 
 ### Read unit vs Updatable unit
 An iot-client can either be a `Read unit` or an `Updatable unit`. 
