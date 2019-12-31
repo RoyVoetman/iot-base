@@ -10,7 +10,7 @@ This application is part of my **IOT dashboard suite**. This suite consists of m
 The Dashboard communicates with the base unit via a service called [Pusher](https://pusher.com/). Pusher is the category leader in robust APIs for app developers building scalable realtime communication features.
 
 #### Base unit with Dashboard
-The base unit communicates with the Dashboard via calling sertain webhooks. It has been decided not to do this via Pusher because the base unit would otherwise have to act as a Pusher client and Pusher server at the same item.
+The base unit communicates with the Dashboard via calling sertain webhooks (https required). It has been decided not to do this via Pusher because the base unit would otherwise have to act as a Pusher client and Pusher server at the same item.
 
 #### Base units with Client
 The base unit communicates with the clients over a TCP socket connection on port `8888`. The clients are capable of maintaining only one connection at the time. 
