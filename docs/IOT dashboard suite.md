@@ -1,5 +1,5 @@
 # About this Project
-This application is part of my **IOT dashboard suite**. This suite consists of multiple projects which together provide a web dashboard via which IOT devices can be controlled remotely.
+This application is part of the **IOT dashboard suite**. This suite consists of multiple projects which together provide a web dashboard via which IOT devices can be controlled remotely.
 * [iot-dashboard](https://github.com/RoyVoetman/iot-dashboard) A Laravel Application which provides a GUI and a Database to store the current state of the IOT devices
 * [iot-clients](https://github.com/RoyVoetman/iot-clients) C++ code that runs on the IOT devices. (e.g. MCUs such as the NodeMCU and the Wemos D1 mini)
 * [iot-base](https://github.com/RoyVoetman/iot-base) The base unit which is responsible for the communication between the `iot-dashboard` and `iot-clients` and vice versa.
