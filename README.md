@@ -23,7 +23,7 @@ This application also expects a `config.json` file in the root folder. An exampl
 |----------------|--------------------------------------------------------------|------------------------|
 | clients        | The local IP's of the `read units`                           |                        |
 | api.url        | The url where the `iot-dashboard` project is hosted          |                        |
-| api.token      | The api token for the `iot-dashboard`                        |                        |
+| api.token      | An api user token from the `iot-dashboard`                   |                        |
 | pusher.app-key | The Pusher application key used in the `iot-dashboard`       |                        |
 | pusher.cluster | The used Pusher cluster.                                     | eu                     |
 | pusher.auth    | The broadcast authentication endpoint of the `iot-dashboard` | /api/broadcasting/auth |
