@@ -16,7 +16,7 @@ This application is part of my **IOT dashboard suite**. For more information abo
 First make sure to install all Maven dependencies by running `mvn install`. Now that all dependencies are imported you can compile and run the Java application via your favorite IDE. Normally I use [IntelliJ](https://www.jetbrains.com/idea/) from Jetbrains.
 
 ### Config
-This application also expects a `config.json` file in the root folder. The structure of this json is shown in `example-config.json`.
+This application also expects a `config.json` file in the root folder. An example of this file is shown in `example-config.json`.
 
 #### Properties
 | Property       | Description                                                  | Default                |
